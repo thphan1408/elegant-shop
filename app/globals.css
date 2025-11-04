@@ -388,6 +388,21 @@
     line-height: 1.75rem;
     font-weight: var(--font-weight-medium);
   }
+  
+  .text-heading-8 {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    font-weight: var(--font-weight-medium);
+    font-style: normal;
+  }
+
+  .headline-4 {
+    font-size: 2.5rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 2.75rem;
+    letter-spacing: -0.025rem;
+  }
 
   .body-1 {
     font-size: 1.25rem;
