@@ -57,6 +57,7 @@
   --color-neutral-03: #e8ecef;
   --color-neutral-02: #f3f5f7;
   --color-neutral-01: #fefefe;
+  --color-white: #ffffff;
   --text-26px: 1.625rem;
   --text-22px: 1.375rem;
   --text-20px: 1.25rem;
@@ -388,9 +389,21 @@
     line-height: 1.75rem;
     font-weight: var(--font-weight-medium);
   }
-  
   .text-heading-8 {
     font-size: 1.5rem;
+    line-height: 1.5rem;
+    font-weight: var(--font-weight-medium);
+    font-style: normal;
+  }
+  .text-heading-9 {
+    font-size: 0.75rem;
+    font-style: normal;
+    line-height: 0.625rem;
+    text-align: center;
+    font-weight: var(--font-weight-bold);
+  }
+  .text-heading-10 {
+    font-size: 1rem;
     line-height: 1.5rem;
     font-weight: var(--font-weight-medium);
     font-style: normal;
@@ -491,7 +504,6 @@
     font-size: 1.125rem;
     line-height: 2rem;
     font-weight: var(--font-weight-medium);
-    padding: 0.75rem 1rem;
   }
   .btn-s {
     font-size: 1rem;
@@ -503,7 +515,7 @@
     font-size: 0.875rem;
     line-height: 1.5rem;
     font-weight: var(--font-weight-medium);
-    padding: 0.375rem 0.5rem;
+    font-style: normal;
   }
 
   .font-regular {
@@ -547,6 +559,66 @@
     .text-heading-6 {
       font-size: 1.5rem;
       line-height: 1.75rem;
+    }
+    .text-heading-7 {
+      font-size: 1.125rem;
+      line-height: 1.5rem;
+    }
+    .text-heading-8 {
+      font-size: 1.25rem;
+      line-height: 1.5rem;
+    }
+    .text-heading-9 {
+      font-size: 0.75rem;
+      font-style: normal;
+      line-height: 0.625rem;
+      text-align: center;
+      font-weight: var(--font-weight-bold);
+    }
+  }
+
+  /* Hover Underline Animation */
+  .hover-underline-animation {
+    display: inline-block;
+    position: relative;
+  }
+
+  .hover-underline-animation::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-primary-1);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+
+  .hover-underline-animation:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  .hover-underline-animation.active-underline::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  /* Search Overlay Exit Animation */
+  .animate-out.slide-out-to-top {
+    animation: slide-out-to-top 0.3s ease-in-out forwards;
+  }
+
+  @keyframes slide-out-to-top {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-100%);
     }
   }
 }

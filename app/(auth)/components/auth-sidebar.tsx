@@ -21,7 +21,7 @@ export default function AuthSidebar() {
         <img
           src="/img/auth-bg.png"
           alt="bg-auth"
-          className="mix-blend-darken object-contain hidden md:block"
+          className="mix-blend-darken max-w-[68%] object-contain hidden md:block"
         />
       </div>
     </div>

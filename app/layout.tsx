@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Inter } from "next/font/google"
 import "./globals.css"
+import Header from "@/components/header"
+import LayoutWrapper from "@/components/layout-wrapper"
 
 const inter = Inter({ subsets: ["vietnamese"] })
 export const metadata: Metadata = {
@@ -17,15 +19,16 @@ export default function RootLayout({
   return (
     <>
       <html lang="en" suppressHydrationWarning>
-        <body className={`${inter.className} lg:px-40`}>
+        <body className={`${inter.className}`}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-            headerr
-            {children}
+            <LayoutWrapper>
+              {children}
+            </LayoutWrapper>
           </ThemeProvider>
         </body>
       </html>
