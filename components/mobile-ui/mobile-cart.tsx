@@ -15,16 +15,17 @@ const Cart = ({ isCartOpen, setIsCartOpen }: CartProps) => {
       className={cn(
         "fixed top-0 right-0 z-50 bg-white transition-transform duration-600 in-ease-out",
         "flex flex-col justify-between items-center shrink-0",
-        "w-[92%] md:w-[55%] lg:w-[28%] h-screen p-6",
+        "w-[92%] md:w-[55%] lg:w-[28%] 2xl:w-[20%] h-screen p-6",
         isCartOpen ? "translate-x-0" : "translate-x-full",
       )}
     >
+      {/* Sheet header */}
       <div className="w-full space-y-4">
         <div className="flex items-center justify-between w-full">
           <h2 className="text-heading-8 text-primary-1">Cart</h2>
           <Button
             variant="ghost"
-            className="p-0 w-6 h-6"
+            className="p-0 w-6 h-6 hover:bg-transparent"
             onClick={() => setIsCartOpen(false)}
           >
             <Image src="/svg/close.svg" width={24} height={24} alt="Close" />
@@ -32,8 +33,9 @@ const Cart = ({ isCartOpen, setIsCartOpen }: CartProps) => {
         </div>
       </div>
 
+      {/* Sheet content */}
       <div className="flex flex-col gap-4 w-full">
-        <div className="w-73.75 flex gap-4">
+        <div className="flex gap-4">
           <div className="bg-neutral-02 flex justify-center items-center w-28 h-28">
             <Image
               src="/img/table7.jpg"
@@ -95,7 +97,7 @@ const Cart = ({ isCartOpen, setIsCartOpen }: CartProps) => {
           </div>
         </div>
 
-        <div className="w-73.75 flex gap-4">
+        <div className="flex gap-4">
           <div className="bg-neutral-02 flex justify-center items-center w-28 h-28">
             <Image
               src="/img/table7.jpg"
@@ -157,7 +159,7 @@ const Cart = ({ isCartOpen, setIsCartOpen }: CartProps) => {
           </div>
         </div>
 
-        <div className="w-73.75 flex gap-4">
+        <div className="flex gap-4">
           <div className="bg-neutral-02 flex justify-center items-center w-28 h-28">
             <Image
               src="/img/table7.jpg"
@@ -220,6 +222,7 @@ const Cart = ({ isCartOpen, setIsCartOpen }: CartProps) => {
         </div>
       </div>
 
+      {/* Sheet footer */}
       <div className="flex flex-col gap-4 w-full justify-end items-center">
         <div className="flex-1 flex flex-col justify-center w-full">
           <ul className="space-y-4">
@@ -240,7 +243,7 @@ const Cart = ({ isCartOpen, setIsCartOpen }: CartProps) => {
 
         <Link
           href="/checkout"
-          className="w-full text-center bg-primary-1 text-white btn-m no-underline py-2.5 px-6.5 rounded-[0.375rem] hover:bg-primary-2 transition-colors"
+          className="w-full text-center bg-primary-1 text-white text-lg leading-8 font-medium no-underline py-2.5 px-6.5 rounded-[0.375rem] hover:bg-primary-2 transition-colors"
         >
           Checkout
         </Link>

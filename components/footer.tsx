@@ -53,7 +53,7 @@ const Footer = () => {
                       <Link
                         href={item.href}
                         className={cn(
-                          "no-underline btn-xs text-neutral-01 relative pb-1 transition-colors inline-block hover-underline-animation",
+                          "no-underline text-sm leading-6 font-medium text-neutral-01 relative pb-1 transition-colors inline-block hover-underline-animation",
                           isActive
                             ? "text-neutral-01 font-semibold active-underline"
                             : "text-neutral-01 hover:text-primary-1",
