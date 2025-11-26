@@ -13,7 +13,7 @@ export default function AuthSidebar() {
       <div className="flex items-center justify-center min-h-0">
         {/* Mobile image */}
         <img
-          src="/img/auth-bg-mobile.png"
+          src="/img/mobile/auth-bg-mobile.png"
           alt="bg-auth"
           className="mix-blend-darken object-contain md:hidden"
         />

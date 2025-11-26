@@ -29,11 +29,11 @@ export default function LayoutWrapper({
   // Regular pages: With header/footer and padding
   return (
     <>
+      <Header />
       <div className={cn("px-8 lg:px-40", className)}>
-        <Header />
         <div>{children}</div>
       </div>
-        <Footer />
+      <Footer />
     </>
   )
 }
