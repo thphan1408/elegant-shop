@@ -107,7 +107,9 @@ const MobileMenu = ({
                 href="/cart"
                 className="flex items-center justify-between gap-2 no-underline"
               >
-                <p className="btn-m text-neutral-04">Cart</p>
+                <p className="text-lg leading-8 font-medium text-neutral-04">
+                  Cart
+                </p>
                 <div className="flex items-center gap-1">
                   <Image
                     src="/svg/shopping-bag.svg"
@@ -126,7 +128,9 @@ const MobileMenu = ({
                 href="/wishlist"
                 className="flex items-center justify-between gap-2 no-underline"
               >
-                <p className="btn-m text-neutral-04">Wishlist</p>
+                <p className="text-lg leading-8 font-medium text-neutral-04">
+                  Wishlist
+                </p>
                 <div className="flex items-center gap-1">
                   <Image
                     src="/svg/heart.svg"
@@ -145,7 +149,7 @@ const MobileMenu = ({
 
         <Link
           href="/sign-in"
-          className="w-full inline-block text-center bg-primary-1 text-white btn-m no-underline py-2.5 px-6.5 rounded-[0.375rem] hover:bg-primary-2 transition-colors"
+          className="w-full inline-block text-center bg-primary-1 text-white text-lg leading-8 font-medium no-underline py-2.5 px-6.5 rounded-[0.375rem] hover:bg-primary-2 transition-colors"
         >
           Sign In
         </Link>

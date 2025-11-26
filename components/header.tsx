@@ -30,7 +30,7 @@ const menuItems = [
 ]
 
 const Header = () => {
-  const pathname = usePathname() 
+  const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
@@ -58,9 +58,9 @@ const Header = () => {
   }
 
   return (
-    <div className="relative">
+    <>
       {/* Mobile Header */}
-      <header className="flex md:hidden items-center justify-between py-4">
+      <header className="sticky top-0 z-50 bg-neutral-01 flex md:hidden items-center justify-between py-4 px-8">
         <div className="flex items-center gap-1">
           <Button
             variant={"ghost"}
@@ -93,19 +93,21 @@ const Header = () => {
               height={24}
               alt="Cart"
             />
-          <span className="flex items-center justify-center w-5 h-5 rounded-full bg-primary-1 text-heading-9 text-white">
-            0
-          </span>
+            <span className="flex items-center justify-center w-5 h-5 rounded-full bg-primary-1 text-heading-9 text-white">
+              0
+            </span>
           </Button>
         </div>
       </header>
 
       {/* Desktop Header */}
-      <header className="hidden md:flex items-center justify-between py-4">
+      <header className="sticky top-0 z-50 bg-neutral-01 hidden md:flex items-center justify-between py-4 px-8 lg:px-40">
         <div>
-          <h1 className="text-heading-8 text-primary-1">
-            3legant<span className="text-neutral-04 text-heading-8">.</span>
-          </h1>
+          <Link href="/" className="no-underline">
+            <h1 className="text-heading-8 text-primary-1">
+              3legant<span className="text-neutral-04 text-heading-8">.</span>
+            </h1>
+          </Link>
         </div>
 
         <div>
@@ -118,7 +120,7 @@ const Header = () => {
                     <Link
                       href={item.href}
                       className={cn(
-                        "no-underline btn-xs text-neutral-04 relative pb-1 transition-colors inline-block hover-underline-animation",
+                        "no-underline text-sm leading-6 font-medium text-neutral-04 relative pb-1 transition-colors inline-block hover-underline-animation",
                         isActive
                           ? "text-primary-1 font-semibold active-underline"
                           : "text-neutral-04 hover:text-primary-1",
@@ -179,43 +181,66 @@ const Header = () => {
         </div>
       </header>
 
-      {/* Desktop Search Overlay */}
+      {/* Desktop Search Overlay - Floating Card Style */}
       {(isSearchOpen || isSearchClosing) && (
         <div
-          className={`hidden md:block absolute top-full left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
-            isSearchClosing
-              ? "animate-out slide-out-to-top opacity-0"
-              : "animate-in slide-in-from-top opacity-100"
+          className={`hidden md:block fixed top-20 left-1/2 -translate-x-1/2 z-50 w-full max-w-2xl px-4 ${
+            isSearchClosing ? "animate-search-out" : "animate-search-in"
           }`}
         >
-          <div className="relative w-full mx-auto">
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
-              <Image
-                src="/svg/search.svg"
-                width={24}
-                height={24}
-                alt="Search"
-              />
-            </div>
-            <Input
-              placeholder="Search"
-              className="w-full pl-12 pr-4 py-3 text-lg border-0 rounded-xl bg-neutral-01 focus:bg-white focus:ring-2 focus:ring-primary-1/20 focus:outline-none shadow-sm transition-all"
-              autoFocus
-            />
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 z-10">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleSearchClose}
-                className="text-neutral-04 p-0 hover:bg-transparent"
-              >
-                <Image
-                  src="/svg/close.svg"
-                  width={24}
-                  height={24}
-                  alt="Close"
+          <div className="bg-white rounded-2xl shadow-2xl border border-neutral-02 overflow-hidden backdrop-blur-sm">
+            {/* Search Input Section */}
+            <div className="relative p-6">
+              <div className="relative">
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
+                  <Image
+                    src="/svg/search.svg"
+                    width={20}
+                    height={20}
+                    alt="Search"
+                    className="text-neutral-04"
+                  />
+                </div>
+                <Input
+                  placeholder="Search products, categories..."
+                  className="w-full pl-12 pr-12 py-4 text-lg border-0 bg-neutral-01 focus:bg-white focus:ring-2 focus:ring-primary-1/10 focus:outline-none transition-all rounded-xl"
+                  autoFocus
                 />
-              </Button>
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 z-10">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleSearchClose}
+                    className="text-neutral-04 hover:text-primary-1 p-1 hover:bg-neutral-01 rounded-lg transition-colors"
+                  >
+                    <Image
+                      src="/svg/close.svg"
+                      width={16}
+                      height={16}
+                      alt="Close"
+                    />
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Suggestions */}
+            <div className="border-t border-neutral-02 p-4">
+              <p className="text-sm text-neutral-04 mb-3 font-medium">
+                Popular searches
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {["Furniture", "Decoration", "Lighting", "Storage"].map(
+                  (term) => (
+                    <button
+                      key={term}
+                      className="px-3 py-1.5 text-sm bg-neutral-01 hover:bg-neutral-02 text-neutral-04 rounded-lg transition-colors"
+                    >
+                      {term}
+                    </button>
+                  ),
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -224,7 +249,7 @@ const Header = () => {
       {/* Search Overlay Background */}
       {isSearchOpen && (
         <div
-          className="hidden md:block fixed inset-0 bg-black/10 z-40"
+          className="hidden md:block fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
           onClick={handleSearchClose}
         />
       )}
@@ -255,7 +280,7 @@ const Header = () => {
         setIsCartOpen={setIsCartOpen}
         pathname={pathname}
       />
-    </div>
+    </>
   )
 }
 
