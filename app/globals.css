@@ -2,6 +2,8 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant md-landscape (@media (min-width: 768px) and (orientation: landscape));
+@custom-variant xl (@media (min-width: 1366px));
 
 @theme inline {
   --color-background: var(--background);
