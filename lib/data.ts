@@ -44,7 +44,7 @@ export const categories: Category[] = [
     imageMobile: "/img/mobile/section_1_mobile.png",
     href: "#",
     position: "top",
-    imageClassName: "2xl:w-full",
+    imageClassName: "md:w-full 2xl:w-full",
     containerClassName: "row-span-2",
   },
   {
@@ -53,7 +53,7 @@ export const categories: Category[] = [
     imageMobile: "/img/mobile/section_2_mobile.png",
     href: "#",
     position: "bottom",
-    imageClassName: "2xl:absolute 2xl:right-0 2xl:top-0 2xl:w-full",
+    imageClassName: "md:w-full 2xl:absolute 2xl:right-0 2xl:top-0 2xl:w-full",
     containerClassName: "",
   },
   {
@@ -62,7 +62,7 @@ export const categories: Category[] = [
     imageMobile: "/img/mobile/section_3_mobile.png",
     href: "#",
     position: "bottom",
-    imageClassName: "2xl:absolute 2xl:right-0 2xl:top-0 2xl:w-full",
+    imageClassName: "md:w-full 2xl:absolute 2xl:right-0 2xl:top-0 2xl:w-full",
     containerClassName: "",
   },
 ]
