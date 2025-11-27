@@ -130,10 +130,10 @@ const ArrivalsProduct = () => {
         </div>
       </div>
 
-      <div>
+      <div className="lg:hidden">
         <Link
           href="#"
-          className="lg:hidden flex items-center gap-1 no-underline border-b border-neutral-07 w-fit btn-xs"
+          className="flex items-center gap-1 no-underline border-b border-neutral-07 w-fit text-sm leading-6 font-medium"
         >
           More Products
           <Image
