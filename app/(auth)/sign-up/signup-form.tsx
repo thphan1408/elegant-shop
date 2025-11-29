@@ -156,13 +156,13 @@ export function SignUpForm() {
                     onCheckedChange={field.onChange}
                   />
                 </FormControl>
-                <FormLabel className="caption-2 text-neutral-04 lg:body-2 whitespace-nowrap overflow-hidden text-ellipsis">
+                <FormLabel className="text-xs leading-5 font-normal text-neutral-04 lg:text-base lg:leading-6.5 whitespace-nowrap overflow-hidden text-ellipsis">
                   I agree with
-                  <span className="lg:body-2-semi caption-2-semi text-neutral-07">
+                  <span className="text-xs leading-5 font-semibold lg:text-base lg:leading-6.5 text-neutral-07">
                     Privacy Policy
                   </span>
                   and
-                  <span className="lg:body-2-semi caption-2-semi text-neutral-07">
+                  <span className="text-xs leading-5 font-semibold lg:text-base lg:leading-6.5 text-neutral-07">
                     Terms of Use
                   </span>
                 </FormLabel>

@@ -146,7 +146,7 @@ export function SignInForm() {
 
               <Link
                 href="/auth/forgot-password"
-                className="text-neutral-07 caption-2-semi lg:body-2-semi no-underline"
+                className="text-neutral-07 text-xs leading-5 font-semibold lg:text-base lg:leading-6.5 no-underline"
               >
                 Forgot password?
               </Link>
