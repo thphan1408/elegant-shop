@@ -4,21 +4,23 @@
 //   return res.json()
 // }
 
+import { v4 as uuidv4 } from "uuid"
+
 export const carouselImages = [
-  "/img/carousel-1.png",
-  "/img/carousel-1.png",
-  "/img/carousel-1.png",
-  "/img/carousel-1.png",
-  "/img/carousel-1.png",
+  { id: uuidv4(), url: "/img/carousel-1.png" },
+  { id: uuidv4(), url: "/img/carousel-1.png" },
+  { id: uuidv4(), url: "/img/carousel-1.png" },
+  { id: uuidv4(), url: "/img/carousel-1.png" },
+  { id: uuidv4(), url: "/img/carousel-1.png" },
 ]
 
 // 🔄 TODO: Replace with API call when backend is ready
 export const carouselImagesMobile = [
-  "/img/carousel-1-mobile.png",
-  "/img/carousel-1-mobile.png",
-  "/img/carousel-1-mobile.png",
-  "/img/carousel-1-mobile.png",
-  "/img/carousel-1-mobile.png",
+  { id: uuidv4(), url: "/img/carousel-1-mobile.png" },
+  { id: uuidv4(), url: "/img/carousel-1-mobile.png" },
+  { id: uuidv4(), url: "/img/carousel-1-mobile.png" },
+  { id: uuidv4(), url: "/img/carousel-1-mobile.png" },
+  { id: uuidv4(), url: "/img/carousel-1-mobile.png" },
 ]
 
 // 🔄 TODO: Replace with API call when backend is ready
@@ -28,6 +30,7 @@ export const carouselImagesMobile = [
 // }
 
 export type Category = {
+  id: string
   title: string
   image: string
   imageMobile: string
@@ -39,6 +42,7 @@ export type Category = {
 
 export const categories: Category[] = [
   {
+    id: uuidv4(),
     title: "Living Room",
     image: "/img/section_1.png",
     imageMobile: "/img/mobile/section_1_mobile.png",
@@ -48,6 +52,7 @@ export const categories: Category[] = [
     containerClassName: "row-span-2",
   },
   {
+    id: uuidv4(),
     title: "Bedroom",
     image: "/img/section_2.png",
     imageMobile: "/img/mobile/section_2_mobile.png",
@@ -57,6 +62,7 @@ export const categories: Category[] = [
     containerClassName: "",
   },
   {
+    id: uuidv4(),
     title: "Kitchen",
     image: "/img/section_3.png",
     imageMobile: "/img/mobile/section_3_mobile.png",
@@ -65,7 +71,7 @@ export const categories: Category[] = [
     imageClassName: "md:w-full 2xl:absolute 2xl:right-0 2xl:top-0 2xl:w-full",
     containerClassName: "",
   },
-]
+] as const
 
 // 🔄 TODO: Replace with API call when backend is ready
 // Example: export async function getProducts() {
@@ -87,7 +93,7 @@ export type ProductVariant = {
 }
 
 export type Product = {
-  id: number
+  id: string
   name: string
   slug?: string
   status?: "New" | "Hot" | null
@@ -116,7 +122,7 @@ export type Product = {
 
 export const MockProducts: Product[] = [
   {
-    id: 1,
+    id: uuidv4(),
     name: "Loveseat Sofa",
     status: "New",
     discount: 50,
@@ -156,7 +162,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: 2,
+    id: uuidv4(),
     name: "Modern Armchair",
     status: null,
     discount: 30,
@@ -178,7 +184,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: 3,
+    id: uuidv4(),
     name: "Dining Table Set",
     status: "Hot",
     category: "Kitchen",
@@ -206,7 +212,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: 4,
+    id: uuidv4(),
     name: "Queen Bed Frame",
     category: "Bedroom",
     measurement: "80 x 60 x 45 inches",
@@ -225,7 +231,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: 5,
+    id: uuidv4(),
     name: "Coffee Table",
     status: "New",
     category: "Living Room",
@@ -255,7 +261,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: 6,
+    id: uuidv4(),
     name: "Office Desk",
     status: "Hot",
     discount: 25,
@@ -286,7 +292,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: 7,
+    id: uuidv4(),
     name: "Bookshelf",
     category: "Living Room",
     measurement: "36 x 12 x 72 inches",
@@ -313,7 +319,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: 8,
+    id: uuidv4(),
     name: "Nightstand",
     status: "New",
     discount: 35,
@@ -344,7 +350,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: 9,
+    id: uuidv4(),
     name: "Bar Stool Set",
     status: "Hot",
     category: "Kitchen",
@@ -372,7 +378,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: 10,
+    id: uuidv4(),
     name: "TV Stand",
     discount: 20,
     category: "Living Room",
@@ -402,7 +408,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: 11,
+    id: uuidv4(),
     name: "Accent Chair",
     status: "New",
     category: "Living Room",
@@ -438,7 +444,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: 12,
+    id: uuidv4(),
     name: "Kitchen Island",
     status: "Hot",
     discount: 15,
@@ -469,7 +475,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: 13,
+    id: uuidv4(),
     name: "Floor Lamp",
     category: "Living Room",
     measurement: "12 x 12 x 65 inches",
@@ -496,7 +502,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: 14,
+    id: uuidv4(),
     name: "Dresser",
     discount: 30,
     category: "Bedroom",
@@ -526,3 +532,37 @@ export const MockProducts: Product[] = [
     ],
   },
 ]
+
+type Service = {
+  id: string
+  title: string
+  description: string
+  icon: string
+}
+
+export const services: Service[] = [
+  {
+    id: uuidv4(),
+    title: "Free Shipping",
+    description: "Order above $200",
+    icon: "/svg/truck.svg",
+  },
+  {
+    id: uuidv4(),
+    title: "Money-back",
+    description: "30 days guarantee",
+    icon: "/svg/money-finance.svg",
+  },
+  {
+    id: uuidv4(),
+    title: "Secure Payments",
+    description: "Secured by Stripe",
+    icon: "/svg/security.svg",
+  },
+  {
+    id: uuidv4(),
+    title: "24/7 Support",
+    description: "Phone and Email support",
+    icon: "/svg/phone.svg",
+  },
+] as const
