@@ -35,7 +35,7 @@ export function CategoryCard({
             : "md:bottom-8 lg:bottom-8 xl:bottom-10 bottom-8"
         } md:left-10 lg:left-12 xl:left-12 left-8 flex flex-col gap-3`}
       >
-        <h3 className="text-neutral-07 headline-6 md:text-heading-5 lg:headline-5 xl:text-heading-4">
+        <h3 className="text-neutral-07 text-[1.75rem] leading-8.5 font-medium md:text-[2.125rem] md:leading-9.5 lg:text-[2.125rem] lg:leading-9.5 lg:tracking-[-0.0375rem] xl:text-[2.5rem] xl:leading-11 xl:tracking-[-0.025rem]">
           {title}
         </h3>
         <Link

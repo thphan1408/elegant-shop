@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button"
 import { MockProducts } from "@/lib/data"
 import Image from "next/image"
 import Link from "next/link"
@@ -8,7 +9,7 @@ const ArrivalsProduct = () => {
     <section className="flex flex-col items-start gap-12 py-8 lg:py-12">
       <div className="flex items-end justify-between w-full">
         <div>
-          <h2 className="lg:text-heading-4 text-primary-1 headline-5">
+          <h2 className="text-primary-1 text-[2.125rem] leading-9.5 font-medium tracking-[-0.0375rem] lg:text-[2.5rem] lg:leading-11 lg:tracking-[-0.025rem]">
             New <br /> Arrivals
           </h2>
         </div>

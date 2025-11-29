@@ -184,7 +184,7 @@ const Header = () => {
       {/* Desktop Search Overlay - Floating Card Style */}
       {(isSearchOpen || isSearchClosing) && (
         <div
-          className={`hidden md:block fixed top-20 left-1/2 -translate-x-1/2 z-50 w-full max-w-2xl px-4 ${
+          className={`hidden md:block fixed top-20 left-0 right-0 z-50 w-full max-w-2xl mx-auto px-4 ${
             isSearchClosing ? "animate-search-out" : "animate-search-in"
           }`}
         >

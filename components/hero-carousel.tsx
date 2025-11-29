@@ -12,8 +12,8 @@ import {
 } from "@/components/ui/carousel"
 
 type HeroCarouselProps = {
-  images: string[]
-  imagesMobile: string[]
+  images: { id: string; url: string }[]
+  imagesMobile: { id: string; url: string }[]
 }
 
 export function HeroCarousel({ images, imagesMobile }: HeroCarouselProps) {
@@ -50,12 +50,12 @@ export function HeroCarousel({ images, imagesMobile }: HeroCarouselProps) {
         ]}
       >
         <CarouselContent>
-          {images.map((image, index) => (
-            <CarouselItem key={index}>
+          {images.map((image) => (
+            <CarouselItem key={image.id}>
               <div className="relative w-full">
                 <img
-                  src={image}
-                  alt={`Carousel image ${index + 1}`}
+                  src={image.url}
+                  alt={`Carousel image`}
                   className="w-full"
                 />
               </div>
@@ -77,12 +77,12 @@ export function HeroCarousel({ images, imagesMobile }: HeroCarouselProps) {
         ]}
       >
         <CarouselContent>
-          {imagesMobile.map((image, index) => (
-            <CarouselItem key={index}>
+          {imagesMobile.map((image) => (
+            <CarouselItem key={image.id}>
               <div className="relative w-full">
                 <img
-                  src={image}
-                  alt={`Carousel mobile image ${index + 1}`}
+                  src={image.url}
+                  alt={`Carousel mobile image`}
                   className="w-full"
                 />
               </div>
@@ -94,7 +94,7 @@ export function HeroCarousel({ images, imagesMobile }: HeroCarouselProps) {
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
           {Array.from({ length: count }).map((_, index) => (
             <button
-              key={index}
+              key={`dot-${index}`}
               onClick={() => scrollTo(index)}
               className={`h-2 rounded-full transition-all ${
                 index === current
