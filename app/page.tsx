@@ -25,7 +25,7 @@ export default function Home() {
 
         <div className="flex flex-col md:flex-row justify-center gap-4 md:items-center md:justify-between md:gap-6 lg:flex-row lg:items-center lg:justify-between xl:gap-8 2xl:items-center lg:gap-6 2xl:gap-16">
           <div className="md:flex-1 md:max-w-[400px] lg:w-160.75 xl:flex-1 xl:max-w-[500px] 2xl:flex-1 2xl:max-w-[550px]">
-            <h1 className="text-neutral-07 text-[2.5rem] leading-11 font-medium md:text-[2.125rem] md:leading-9.5 xl:text-[3.375rem] xl:leading-14.5 xl:font-semibold 2xl:text-[4rem] 2xl:leading-18 2xl:font-medium">
+            <h1 className="text-neutral-07 text-[2rem] leading-11 font-medium md:text-[2.125rem] md:leading-9.5 xl:text-[3.375rem] xl:leading-14.5 xl:font-semibold 2xl:text-[3rem] 2xl:leading-18 2xl:font-medium">
               Simply Unique<span className="text-neutral-04">/</span>
               <br />
               Simply Better<span className="text-neutral-04">.</span>
