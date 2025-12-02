@@ -595,3 +595,103 @@ export const articles: Articles[] = [
     url: "/articles/decorating-small-bedroom",
   },
 ]
+
+type CartItem = {
+  id: string
+  name: string
+  color: string
+  price: number
+  quantity: number
+  image: string
+}
+
+export const cartItems: CartItem[] = [
+  {
+    id: uuidv4(),
+    name: "Tray Table",
+    color: "Black",
+    price: 50,
+    quantity: 2,
+    image: "/img/table7.jpg",
+  },
+  {
+    id: uuidv4(),
+    name: "Tray Table",
+    color: "Black",
+    price: 50,
+    quantity: 2,
+    image: "/img/table7.jpg",
+  },
+  {
+    id: uuidv4(),
+    name: "Tray Table",
+    color: "Black",
+    price: 50,
+    quantity: 2,
+    image: "/img/table7.jpg",
+  },
+  {
+    id: uuidv4(),
+    name: "Tray Table",
+    color: "Black",
+    price: 50,
+    quantity: 2,
+    image: "/img/table7.jpg",
+  },
+  {
+    id: uuidv4(),
+    name: "Tray Table",
+    color: "Black",
+    price: 50,
+    quantity: 2,
+    image: "/img/table7.jpg",
+  },
+  {
+    id: uuidv4(),
+    name: "Tray Table",
+    color: "Black",
+    price: 50,
+    quantity: 2,
+    image: "/img/table7.jpg",
+  },
+  {
+    id: uuidv4(),
+    name: "Tray Table",
+    color: "Black",
+    price: 50,
+    quantity: 2,
+    image: "/img/table7.jpg",
+  },
+  {
+    id: uuidv4(),
+    name: "Tray Table",
+    color: "Black",
+    price: 50,
+    quantity: 2,
+    image: "/img/table7.jpg",
+  },
+  {
+    id: uuidv4(),
+    name: "Tray Table",
+    color: "Black",
+    price: 50,
+    quantity: 2,
+    image: "/img/table7.jpg",
+  },
+  {
+    id: uuidv4(),
+    name: "Tray Table",
+    color: "Black",
+    price: 50,
+    quantity: 2,
+    image: "/img/table7.jpg",
+  },
+  {
+    id: uuidv4(),
+    name: "Tray Table",
+    color: "Black",
+    price: 50,
+    quantity: 2,
+    image: "/img/table7.jpg",
+  },
+]
