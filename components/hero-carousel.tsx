@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from "react"
 import Autoplay from "embla-carousel-autoplay"
-import Image from "next/image"
 import {
   Carousel,
   CarouselApi,
@@ -97,10 +96,12 @@ export function HeroCarousel({ images, imagesMobile }: HeroCarouselProps) {
           {Array.from({ length: count }).map((_, index) => (
             <Button
               key={`dot-${index}`}
+              variant="ghost"
+              size="icon"
               onClick={() => scrollTo(index)}
-              className={`h-2 rounded-full transition-all ${
+              className={`p-0! min-w-0! min-h-0! h-2 rounded-full transition-all ${
                 index === current
-                  ? "w-8 bg-white"
+                  ? "w-8 bg-white hover:bg-white"
                   : "w-2 bg-white/50 hover:bg-white/75"
               }`}
               aria-label={`Go to slide ${index + 1}`}
