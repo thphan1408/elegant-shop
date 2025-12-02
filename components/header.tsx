@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import React, { useState } from "react"
+import React, { useState, useCallback, useTransition } from "react"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
@@ -35,6 +35,7 @@ const Header = () => {
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isSearchClosing, setIsSearchClosing] = useState(false)
+  const [isPending, startTransition] = useTransition()
 
   // Handle Escape key to close search
   React.useEffect(() => {
@@ -49,13 +50,20 @@ const Header = () => {
   }, [isSearchOpen])
 
   // Handle search close with animation
-  const handleSearchClose = () => {
+  const handleSearchClose = useCallback(() => {
     setIsSearchClosing(true)
     setTimeout(() => {
       setIsSearchOpen(false)
       setIsSearchClosing(false)
-    }, 300) // Match animation duration
-  }
+    }, 300)
+  }, [])
+
+  // Handle search toggle with transition for better INP
+  const handleSearchToggle = useCallback(() => {
+    startTransition(() => {
+      setIsSearchOpen((prev) => !prev)
+    })
+  }, [])
 
   return (
     <>
@@ -140,13 +148,14 @@ const Header = () => {
               <Button
                 variant={"ghost"}
                 className="hover:bg-transparent p-0"
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                onClick={handleSearchToggle}
               >
                 <Image
                   src={isSearchOpen ? "/svg/close.svg" : "/svg/search.svg"}
                   width={24}
                   height={24}
                   alt={isSearchOpen ? "Close" : "Search"}
+                  priority
                 />
               </Button>
             </li>
@@ -263,24 +272,13 @@ const Header = () => {
         />
       )}
 
-      {isCartOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-40"
-          onClick={() => setIsCartOpen(false)}
-        />
-      )}
-
       <MobileMenu
         isMenuOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}
         pathname={pathname}
       />
 
-      <Cart
-        isCartOpen={isCartOpen}
-        setIsCartOpen={setIsCartOpen}
-        pathname={pathname}
-      />
+      <Cart isCartOpen={isCartOpen} setIsCartOpen={setIsCartOpen} />
     </>
   )
 }
