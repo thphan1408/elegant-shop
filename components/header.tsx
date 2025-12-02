@@ -232,12 +232,13 @@ const Header = () => {
               <div className="flex flex-wrap gap-2">
                 {["Furniture", "Decoration", "Lighting", "Storage"].map(
                   (term) => (
-                    <button
+                    <Button
                       key={term}
+                      variant="ghost"
                       className="px-3 py-1.5 text-sm bg-neutral-01 hover:bg-neutral-02 text-neutral-04 rounded-lg transition-colors"
                     >
                       {term}
-                    </button>
+                    </Button>
                   ),
                 )}
               </div>

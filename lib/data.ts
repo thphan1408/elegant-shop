@@ -4,6 +4,7 @@
 //   return res.json()
 // }
 
+import Articles from "@/components/articles"
 import { v4 as uuidv4 } from "uuid"
 
 export const carouselImages = [
@@ -566,3 +567,31 @@ export const services: Service[] = [
     icon: "/svg/phone.svg",
   },
 ] as const
+
+type Articles = {
+  id: string
+  title: string
+  img: string
+  url: string
+}
+
+export const articles: Articles[] = [
+  {
+    id: uuidv4(),
+    title: "7 ways to decor your home",
+    img: "/img/article_1.png",
+    url: "/articles/7-ways-to-decor-your-home",
+  },
+  {
+    id: uuidv4(),
+    title: "Kitchen organization",
+    img: "/img/article_2.png",
+    url: "/articles/kitchen-organization",
+  },
+  {
+    id: uuidv4(),
+    title: "Decor your bedroom",
+    img: "/img/article_3.png",
+    url: "/articles/decorating-small-bedroom",
+  },
+]

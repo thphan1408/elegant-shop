@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react"
 import Autoplay from "embla-carousel-autoplay"
+import Image from "next/image"
 import {
   Carousel,
   CarouselApi,
@@ -10,6 +11,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import { Button } from "@/components/ui/button"
 
 type HeroCarouselProps = {
   images: { id: string; url: string }[]
@@ -93,7 +95,7 @@ export function HeroCarousel({ images, imagesMobile }: HeroCarouselProps) {
         {/* Dots for Mobile */}
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
           {Array.from({ length: count }).map((_, index) => (
-            <button
+            <Button
               key={`dot-${index}`}
               onClick={() => scrollTo(index)}
               className={`h-2 rounded-full transition-all ${
