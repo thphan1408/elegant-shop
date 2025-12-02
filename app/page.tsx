@@ -8,6 +8,9 @@ import {
 } from "@/lib/data"
 import ArrivalsProduct from "@/components/arrivals-product"
 import Image from "next/image"
+import Link from "next/link"
+import Articles from "@/components/articles"
+import NewsletterForm from "@/app/newsletter-form"
 
 // 🔄 TODO: When you have backend API, replace imports above with:
 // const carouselImages = await fetch('/api/carousel-images').then(r => r.json())
@@ -80,6 +83,51 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <section
+        className="bg-neutral-02 -mx-8 lg:-mx-40 grid grid-cols-1 grid-cols-auto
+      lg:grid-cols-2"
+      >
+        <div>
+          <img
+            src="/img/banner.png"
+            alt="article"
+            className="w-full h-full 2xl:min-w-full"
+          />
+        </div>
+        <div className="mx-8 lg:mx-0 lg:pl-18 lg:mr-40 py-35 flex flex-col items-start justify-center gap-6">
+          <div className="flex flex-col lg:items-start gap-4">
+            <p className="text-blue text-base font-bold leading-4 uppercase">
+              SALE UP TO 35% OFF
+            </p>
+            <p className="text-neutral-07 text-[2.125rem] font-medium leading-9.5 tracking-[-0.0375rem] lg:text-[2.5rem] lg:leading-11 lg:tracking-[-0.025rem]">
+              HUNDREDS of New lower prices!
+            </p>
+            <p className="text-base font-normal leading-6.5 lg:text-xl lg:leading-8">
+              It's more affordable than ever to give every room in your home a
+              stylish makeover
+            </p>
+          </div>
+          <div>
+            <Link
+              href={"/#"}
+              className="flex items-center gap-1 text-sm leading-6 font-medium md:text-base md:leading-7 lg:text-base lg:leading-7 xl:text-lg xl:leading-8 no-underline border-b border-neutral-07 w-fit"
+            >
+              Shop Now
+              <Image
+                src="/svg/arrow-right.svg"
+                alt="Arrow Right"
+                width={20}
+                height={20}
+              />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <Articles />
+
+      <NewsletterForm />
     </>
   )
 }
