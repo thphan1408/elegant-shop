@@ -8,7 +8,8 @@ import { cn } from "@/lib/utils"
 import Image from "next/image"
 import { Input } from "@/components/ui/input"
 import MobileMenu from "@/components/mobile-ui/mobile-menu"
-import Cart from "@/components/mobile-ui/mobile-cart"
+import Cart from "@/components/cart"
+import { useCartStore, useCartItemsCount } from "@/store/cart-store"
 
 const menuItems = [
   {
@@ -32,10 +33,12 @@ const menuItems = [
 const Header = () => {
   const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isCartOpen, setIsCartOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isSearchClosing, setIsSearchClosing] = useState(false)
   const [isPending, startTransition] = useTransition()
+
+  const openCart = useCartStore((state) => state.openCart)
+  const cartItemsCount = useCartItemsCount()
 
   // Handle Escape key to close search
   React.useEffect(() => {
@@ -93,7 +96,7 @@ const Header = () => {
           <Button
             variant={"ghost"}
             className="hover:bg-transparent p-0 flex items-center gap-1"
-            onClick={() => setIsCartOpen(!isCartOpen)}
+            onClick={openCart}
           >
             <Image
               src="/svg/shopping-bag.svg"
@@ -102,7 +105,7 @@ const Header = () => {
               alt="Cart"
             />
             <span className="flex items-center justify-center w-5 h-5 rounded-full bg-primary-1 text-heading-9 text-white">
-              0
+              {cartItemsCount}
             </span>
           </Button>
         </div>
@@ -173,7 +176,7 @@ const Header = () => {
               <Button
                 variant={"ghost"}
                 className="hover:bg-transparent p-0"
-                onClick={() => setIsCartOpen(!isCartOpen)}
+                onClick={openCart}
               >
                 <Image
                   src="/svg/shopping-bag.svg"
@@ -183,7 +186,7 @@ const Header = () => {
                 />
               </Button>
               <span className="flex items-center justify-center w-5 h-5 rounded-full bg-primary-1 text-heading-9 text-white">
-                0
+                {cartItemsCount}
               </span>
             </li>
           </ul>
@@ -278,7 +281,7 @@ const Header = () => {
         pathname={pathname}
       />
 
-      <Cart isCartOpen={isCartOpen} setIsCartOpen={setIsCartOpen} />
+      <Cart />
     </>
   )
 }

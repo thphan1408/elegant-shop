@@ -1,10 +1,34 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
-import { MockProducts } from "@/lib/data"
+import { MockProducts, Product } from "@/lib/data"
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
+import { useCartStore } from "@/store/cart-store"
 
 const ArrivalsProduct = () => {
+  const addItem = useCartStore((state) => state.addItem)
+
+  const handleAddToCart = (product: Product, e: React.MouseEvent) => {
+    e.preventDefault() // Prevent navigation when clicking button inside Link
+    e.stopPropagation()
+
+    const variant = product.variants[0]
+    addItem({
+      productId: product.id,
+      name: product.name,
+      color: variant.color,
+      colorHex: variant.colorHex,
+      price: variant.price_sale ?? variant.price,
+      originalPrice: variant.price_sale ? variant.price : undefined,
+      quantity: 1,
+      image: variant.image,
+      sku: variant.sku,
+      stock: variant.quantity, // Truyền số lượng tồn kho từ variant
+    })
+  }
+
   return (
     <section className="flex flex-col items-start gap-12 py-8 lg:py-12">
       <div className="flex items-end justify-between w-full">
@@ -51,9 +75,12 @@ const ArrivalsProduct = () => {
 
                     {/* Buttons appear on hover */}
                     <div className="absolute inset-x-0 bottom-4 opacity-100 mx-4 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <button className="w-full bg-neutral-07 text-neutral-01 py-2 px-6 rounded-lg mb-2 hover:bg-neutral-07 transition-colors flex items-center justify-center gap-2 btn-s">
+                      <Button
+                        onClick={(e) => handleAddToCart(product, e)}
+                        className="w-full bg-neutral-07 text-neutral-01 py-2 px-6 rounded-lg mb-2 hover:bg-neutral-07 transition-colors flex items-center justify-center gap-2 btn-s"
+                      >
                         Add to cart
-                      </button>
+                      </Button>
                     </div>
 
                     {/* Wishlist button in top right corner */}
