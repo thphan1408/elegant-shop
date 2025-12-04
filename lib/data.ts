@@ -4,24 +4,21 @@
 //   return res.json()
 // }
 
-import Articles from "@/components/articles"
-import { v4 as uuidv4 } from "uuid"
-
 export const carouselImages = [
-  { id: uuidv4(), url: "/img/carousel-1.png" },
-  { id: uuidv4(), url: "/img/carousel-1.png" },
-  { id: uuidv4(), url: "/img/carousel-1.png" },
-  { id: uuidv4(), url: "/img/carousel-1.png" },
-  { id: uuidv4(), url: "/img/carousel-1.png" },
+  { id: "carousel-1", url: "/img/carousel-1.png" },
+  { id: "carousel-2", url: "/img/carousel-1.png" },
+  { id: "carousel-3", url: "/img/carousel-1.png" },
+  { id: "carousel-4", url: "/img/carousel-1.png" },
+  { id: "carousel-5", url: "/img/carousel-1.png" },
 ]
 
 // 🔄 TODO: Replace with API call when backend is ready
 export const carouselImagesMobile = [
-  { id: uuidv4(), url: "/img/carousel-1-mobile.png" },
-  { id: uuidv4(), url: "/img/carousel-1-mobile.png" },
-  { id: uuidv4(), url: "/img/carousel-1-mobile.png" },
-  { id: uuidv4(), url: "/img/carousel-1-mobile.png" },
-  { id: uuidv4(), url: "/img/carousel-1-mobile.png" },
+  { id: "carousel-mobile-1", url: "/img/carousel-1-mobile.png" },
+  { id: "carousel-mobile-2", url: "/img/carousel-1-mobile.png" },
+  { id: "carousel-mobile-3", url: "/img/carousel-1-mobile.png" },
+  { id: "carousel-mobile-4", url: "/img/carousel-1-mobile.png" },
+  { id: "carousel-mobile-5", url: "/img/carousel-1-mobile.png" },
 ]
 
 // 🔄 TODO: Replace with API call when backend is ready
@@ -43,7 +40,7 @@ export type Category = {
 
 export const categories: Category[] = [
   {
-    id: uuidv4(),
+    id: "category-living-room",
     title: "Living Room",
     image: "/img/section_1.png",
     imageMobile: "/img/mobile/section_1_mobile.png",
@@ -53,7 +50,7 @@ export const categories: Category[] = [
     containerClassName: "row-span-2",
   },
   {
-    id: uuidv4(),
+    id: "category-bedroom",
     title: "Bedroom",
     image: "/img/section_2.png",
     imageMobile: "/img/mobile/section_2_mobile.png",
@@ -63,7 +60,7 @@ export const categories: Category[] = [
     containerClassName: "",
   },
   {
-    id: uuidv4(),
+    id: "category-kitchen",
     title: "Kitchen",
     image: "/img/section_3.png",
     imageMobile: "/img/mobile/section_3_mobile.png",
@@ -123,7 +120,7 @@ export type Product = {
 
 export const MockProducts: Product[] = [
   {
-    id: uuidv4(),
+    id: "product-loveseat-sofa",
     name: "Loveseat Sofa",
     status: "New",
     discount: 50,
@@ -163,7 +160,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: uuidv4(),
+    id: "product-modern-armchair",
     name: "Modern Armchair",
     status: null,
     discount: 30,
@@ -185,7 +182,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: uuidv4(),
+    id: "product-dining-table-set",
     name: "Dining Table Set",
     status: "Hot",
     category: "Kitchen",
@@ -213,7 +210,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: uuidv4(),
+    id: "product-queen-bed-frame",
     name: "Queen Bed Frame",
     category: "Bedroom",
     measurement: "80 x 60 x 45 inches",
@@ -232,7 +229,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: uuidv4(),
+    id: "product-coffee-table",
     name: "Coffee Table",
     status: "New",
     category: "Living Room",
@@ -262,7 +259,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: uuidv4(),
+    id: "product-office-desk",
     name: "Office Desk",
     status: "Hot",
     discount: 25,
@@ -293,7 +290,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: uuidv4(),
+    id: "product-bookshelf",
     name: "Bookshelf",
     category: "Living Room",
     measurement: "36 x 12 x 72 inches",
@@ -320,7 +317,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: uuidv4(),
+    id: "product-nightstand",
     name: "Nightstand",
     status: "New",
     discount: 35,
@@ -351,7 +348,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: uuidv4(),
+    id: "product-bar-stool-set",
     name: "Bar Stool Set",
     status: "Hot",
     category: "Kitchen",
@@ -379,7 +376,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: uuidv4(),
+    id: "product-tv-stand",
     name: "TV Stand",
     discount: 20,
     category: "Living Room",
@@ -409,7 +406,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: uuidv4(),
+    id: "product-accent-chair",
     name: "Accent Chair",
     status: "New",
     category: "Living Room",
@@ -445,7 +442,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: uuidv4(),
+    id: "product-kitchen-island",
     name: "Kitchen Island",
     status: "Hot",
     discount: 15,
@@ -476,7 +473,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: uuidv4(),
+    id: "product-floor-lamp",
     name: "Floor Lamp",
     category: "Living Room",
     measurement: "12 x 12 x 65 inches",
@@ -503,7 +500,7 @@ export const MockProducts: Product[] = [
     ],
   },
   {
-    id: uuidv4(),
+    id: "product-dresser",
     name: "Dresser",
     discount: 30,
     category: "Bedroom",
@@ -543,25 +540,25 @@ type Service = {
 
 export const services: Service[] = [
   {
-    id: uuidv4(),
+    id: "service-free-shipping",
     title: "Free Shipping",
     description: "Order above $200",
     icon: "/svg/truck.svg",
   },
   {
-    id: uuidv4(),
+    id: "service-money-back",
     title: "Money-back",
     description: "30 days guarantee",
     icon: "/svg/money-finance.svg",
   },
   {
-    id: uuidv4(),
+    id: "service-secure-payments",
     title: "Secure Payments",
     description: "Secured by Stripe",
     icon: "/svg/security.svg",
   },
   {
-    id: uuidv4(),
+    id: "service-24-7-support",
     title: "24/7 Support",
     description: "Phone and Email support",
     icon: "/svg/phone.svg",
@@ -577,121 +574,21 @@ type Articles = {
 
 export const articles: Articles[] = [
   {
-    id: uuidv4(),
+    id: "article-7-ways-decor",
     title: "7 ways to decor your home",
     img: "/img/article_1.png",
     url: "/articles/7-ways-to-decor-your-home",
   },
   {
-    id: uuidv4(),
+    id: "article-kitchen-organization",
     title: "Kitchen organization",
     img: "/img/article_2.png",
     url: "/articles/kitchen-organization",
   },
   {
-    id: uuidv4(),
+    id: "article-decor-bedroom",
     title: "Decor your bedroom",
     img: "/img/article_3.png",
     url: "/articles/decorating-small-bedroom",
-  },
-]
-
-type CartItem = {
-  id: string
-  name: string
-  color: string
-  price: number
-  quantity: number
-  image: string
-}
-
-export const cartItems: CartItem[] = [
-  {
-    id: uuidv4(),
-    name: "Tray Table",
-    color: "Black",
-    price: 50,
-    quantity: 2,
-    image: "/img/table7.jpg",
-  },
-  {
-    id: uuidv4(),
-    name: "Tray Table",
-    color: "Black",
-    price: 50,
-    quantity: 2,
-    image: "/img/table7.jpg",
-  },
-  {
-    id: uuidv4(),
-    name: "Tray Table",
-    color: "Black",
-    price: 50,
-    quantity: 2,
-    image: "/img/table7.jpg",
-  },
-  {
-    id: uuidv4(),
-    name: "Tray Table",
-    color: "Black",
-    price: 50,
-    quantity: 2,
-    image: "/img/table7.jpg",
-  },
-  {
-    id: uuidv4(),
-    name: "Tray Table",
-    color: "Black",
-    price: 50,
-    quantity: 2,
-    image: "/img/table7.jpg",
-  },
-  {
-    id: uuidv4(),
-    name: "Tray Table",
-    color: "Black",
-    price: 50,
-    quantity: 2,
-    image: "/img/table7.jpg",
-  },
-  {
-    id: uuidv4(),
-    name: "Tray Table",
-    color: "Black",
-    price: 50,
-    quantity: 2,
-    image: "/img/table7.jpg",
-  },
-  {
-    id: uuidv4(),
-    name: "Tray Table",
-    color: "Black",
-    price: 50,
-    quantity: 2,
-    image: "/img/table7.jpg",
-  },
-  {
-    id: uuidv4(),
-    name: "Tray Table",
-    color: "Black",
-    price: 50,
-    quantity: 2,
-    image: "/img/table7.jpg",
-  },
-  {
-    id: uuidv4(),
-    name: "Tray Table",
-    color: "Black",
-    price: 50,
-    quantity: 2,
-    image: "/img/table7.jpg",
-  },
-  {
-    id: uuidv4(),
-    name: "Tray Table",
-    color: "Black",
-    price: 50,
-    quantity: 2,
-    image: "/img/table7.jpg",
   },
 ]
