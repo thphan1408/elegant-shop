@@ -1,9 +1,12 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 import Link from "next/link"
-import { de } from "zod/locales"
+import { useIsAuthenticated, useAuthStore } from "@/store/auth-store"
+import { useRouter } from "next/navigation"
 
 const menuItems = [
   {
@@ -35,6 +38,17 @@ const MobileMenu = ({
   setIsMenuOpen,
   pathname,
 }: MobileMenuProps) => {
+  const isAuthenticated = useIsAuthenticated()
+  const { logout } = useAuthStore()
+  const router = useRouter()
+
+  const handleLogout = () => {
+    logout()
+    setIsMenuOpen(false)
+    router.push("/")
+    router.refresh()
+  }
+
   return (
     <div
       className={cn(
@@ -147,12 +161,38 @@ const MobileMenu = ({
           </ul>
         </div>
 
+        {isAuthenticated ? (
+          <div className="w-full space-y-2">
+            <Link
+              href="/profile"
+              className="block text-center text-lg leading-8 font-medium text-neutral-07 no-underline py-2.5 px-6.5 rounded-[0.375rem] hover:bg-neutral-02 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Profile
+            </Link>
+            <Link
+              href="/orders"
+              className="block text-center text-lg leading-8 font-medium text-neutral-07 no-underline py-2.5 px-6.5 rounded-[0.375rem] hover:bg-neutral-02 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              My Orders
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="w-full text-center bg-primary-1 text-white text-lg leading-8 font-medium py-2.5 px-6.5 rounded-[0.375rem] hover:bg-primary-2 transition-colors"
+            >
+              Logout
+            </button>
+          </div>
+        ) : (
         <Link
           href="/sign-in"
           className="w-full inline-block text-center bg-primary-1 text-white text-lg leading-8 font-medium no-underline py-2.5 px-6.5 rounded-[0.375rem] hover:bg-primary-2 transition-colors"
+            onClick={() => setIsMenuOpen(false)}
         >
           Sign In
         </Link>
+        )}
 
         <div className="flex items-start gap-6">
           <Link

@@ -10,6 +10,8 @@ import { Input } from "@/components/ui/input"
 import MobileMenu from "@/components/mobile-ui/mobile-menu"
 import Cart from "@/components/cart"
 import { useCartStore, useCartItemsCount } from "@/store/cart-store"
+import { useIsAuthenticated } from "@/store/auth-store"
+import { UserMenu } from "@/components/user-menu"
 
 const menuItems = [
   {
@@ -39,6 +41,7 @@ const Header = () => {
 
   const openCart = useCartStore((state) => state.openCart)
   const cartItemsCount = useCartItemsCount()
+  const isAuthenticated = useIsAuthenticated()
 
   // Handle Escape key to close search
   React.useEffect(() => {
@@ -163,6 +166,9 @@ const Header = () => {
               </Button>
             </li>
             <li>
+              {isAuthenticated ? (
+                <UserMenu />
+              ) : (
               <Link href="/sign-in">
                 <Image
                   src="/svg/user-circle.svg"
@@ -171,6 +177,7 @@ const Header = () => {
                   alt="User"
                 />
               </Link>
+              )}
             </li>
             <li className="flex items-center gap-1">
               <Button
