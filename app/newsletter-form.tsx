@@ -24,7 +24,6 @@ export default function NewsletterForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // TODO: Handle newsletter subscription
-    console.log(values)
   }
 
   return (

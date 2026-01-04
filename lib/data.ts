@@ -77,52 +77,14 @@ export const categories: Category[] = [
 //   return res.json()
 // }
 
-export type ProductVariant = {
-  color: string
-  colorHex?: string // For color swatch display
-  image: string
-  images?: string[] // Gallery images for this variant
-  sku: string
-  quantity: number
-  price: number
-  price_sale?: number
-  size?: string // "Small", "Medium", "Large"
-  material?: string // "Fabric", "Leather", "Wood"
-}
-
-export type Product = {
-  id: string
-  name: string
-  slug?: string
-  status?: "New" | "Hot" | null
-  discount?: number // percentage: 50 means 50%
-  category: string
-  measurement: string
-  description: string
-  stars_evaluate: number
-  rating_count: number
-
-  // Additional fields
-  brand?: string
-  material?: string
-  weight?: number // in kg
-  warranty?: string
-  tags?: string[] // ["modern", "bestseller", "eco-friendly"]
-
-  // SEO
-  meta_title?: string
-  meta_description?: string
-
-  variants: ProductVariant[] // Multiple colors/options
-  is_featured?: boolean
-  is_active?: boolean
-}
+// Import types from centralized location to avoid conflicts
+import type { Product, ProductVariant } from "@/types/product"
 
 export const MockProducts: Product[] = [
   {
     id: "product-loveseat-sofa",
     name: "Loveseat Sofa",
-    status: "New",
+    status: "NEW",
     discount: 50,
     category: "Living Room",
     measurement: "80 x 35 x 40 inches",
@@ -162,7 +124,7 @@ export const MockProducts: Product[] = [
   {
     id: "product-modern-armchair",
     name: "Modern Armchair",
-    status: null,
+    status: undefined,
     discount: 30,
     category: "Living Room",
     measurement: "32 x 32 x 35 inches",
@@ -184,7 +146,7 @@ export const MockProducts: Product[] = [
   {
     id: "product-dining-table-set",
     name: "Dining Table Set",
-    status: "Hot",
+    status: "HOT",
     category: "Kitchen",
     measurement: "60 x 36 x 30 inches",
     description: "6-seater dining table with matching chairs.",
@@ -231,7 +193,7 @@ export const MockProducts: Product[] = [
   {
     id: "product-coffee-table",
     name: "Coffee Table",
-    status: "New",
+    status: "NEW",
     category: "Living Room",
     measurement: "48 x 24 x 18 inches",
     description: "Modern glass-top coffee table with metal frame.",
@@ -261,7 +223,7 @@ export const MockProducts: Product[] = [
   {
     id: "product-office-desk",
     name: "Office Desk",
-    status: "Hot",
+    status: "HOT",
     discount: 25,
     category: "Office",
     measurement: "55 x 28 x 30 inches",
@@ -319,7 +281,7 @@ export const MockProducts: Product[] = [
   {
     id: "product-nightstand",
     name: "Nightstand",
-    status: "New",
+    status: "NEW",
     discount: 35,
     category: "Bedroom",
     measurement: "20 x 18 x 24 inches",
@@ -350,7 +312,7 @@ export const MockProducts: Product[] = [
   {
     id: "product-bar-stool-set",
     name: "Bar Stool Set",
-    status: "Hot",
+    status: "HOT",
     category: "Kitchen",
     measurement: "16 x 16 x 30 inches",
     description: "Set of 2 adjustable bar stools with backrest.",
@@ -408,7 +370,7 @@ export const MockProducts: Product[] = [
   {
     id: "product-accent-chair",
     name: "Accent Chair",
-    status: "New",
+    status: "NEW",
     category: "Living Room",
     measurement: "28 x 30 x 36 inches",
     description: "Velvet accent chair with wooden legs.",
@@ -444,7 +406,7 @@ export const MockProducts: Product[] = [
   {
     id: "product-kitchen-island",
     name: "Kitchen Island",
-    status: "Hot",
+    status: "HOT",
     discount: 15,
     category: "Kitchen",
     measurement: "48 x 24 x 36 inches",
