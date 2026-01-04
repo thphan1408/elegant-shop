@@ -48,6 +48,7 @@
 :root {
   --radius: 0.625rem;
   --color-primary-1: #000000;
+  --color-primary-2: #141718;
   --color-blue: #377dff;
   --color-green: #38cb89;
   --color-orange: #ffab00;
@@ -216,6 +217,9 @@
 @layer utilities {
   .bg-primary-1 {
     background-color: var(--color-primary-1);
+  }
+  .bg-primary-2 {
+    background-color: var(--color-primary-2);
   }
   .bg-blue {
     background-color: var(--color-blue);
@@ -605,6 +609,15 @@
 
   .scrollbar-custom::-webkit-scrollbar-thumb:hover {
     background: var(--color-neutral-06);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 
   /* Search Overlay Animations */
