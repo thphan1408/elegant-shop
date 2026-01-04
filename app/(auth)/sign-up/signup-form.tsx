@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { useState } from "react"
 import { Eye, EyeOff } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -19,6 +18,10 @@ import {
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { register } from "@/services/auth.service"
+import { toast } from "sonner"
 
 const formSchema = z.object({
   yourname: z.string().min(2, {
@@ -40,6 +43,8 @@ const formSchema = z.object({
 
 export function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -52,10 +57,39 @@ export function SignUpForm() {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true)
+
+    try {
+      const registerData = {
+        name: values.yourname,
+        username: values.username,
+        email: values.email,
+        password: values.password,
+        privacyPolicy: values.checkbox,
+      }
+
+      await register(registerData)
+
+      // Show success toast
+      toast.success("Registration successful!", {
+        description: "Redirecting to sign in page...",
+      })
+
+      // Redirect to sign-in page after 2 seconds
+      setTimeout(() => {
+        router.push("/sign-in")
+      }, 2000)
+    } catch (err) {
+      toast.error("Registration failed", {
+        description:
+          err instanceof Error
+            ? err.message
+            : "Please check your information and try again.",
+      })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -170,7 +204,9 @@ export function SignUpForm() {
             )}
           />
 
-          <Button type="submit">Sign Up</Button>
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? "Signing up..." : "Sign Up"}
+          </Button>
         </form>
       </Form>
     </div>

@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { useState } from "react"
 import { Eye, EyeOff } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -18,43 +17,82 @@ import {
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import Link from "next/link"
+import { useAuthStore } from "@/store/auth-store"
+import { useRouter, useSearchParams } from "next/navigation"
+import { Suspense, useState } from "react"
+import { login } from "@/services/auth.service"
+import { toast } from "sonner"
 
 const formSchema = z.object({
-  yourname: z.string().min(2, {
-    message: "Your name must be at least 2 characters.",
-  }),
-  email: z.string().min(2, {
-    message: "Email must be at least 2 characters.",
+  username: z.string().min(2, {
+    message: "Username or email must be at least 2 characters.",
   }),
   password: z.string().min(6, {
     message: "Password must be at least 6 characters.",
   }),
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  checkbox: z.boolean().refine((val) => val === true, {
-    message: "You must agree to the terms and conditions.",
-  }),
+  checkbox: z.boolean().optional(),
 })
 
-export function SignInForm() {
+function SignInFormContent() {
   const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const { setAuth } = useAuthStore()
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const redirect = searchParams.get("redirect") || "/"
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      yourname: "",
       username: "",
-      email: "",
       password: "",
       checkbox: false,
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true)
+
+    try {
+      // Determine if username is email or username
+      const isEmail = values.username.includes("@")
+      const loginData = {
+        [isEmail ? "email" : "username"]: values.username,
+        password: values.password,
+      }
+
+      const response = await login(loginData)
+
+      // Save auth state with remember me
+      setAuth(
+        response.user,
+        response.accessToken,
+        response.refreshToken,
+        values.checkbox || false,
+      )
+
+      // Show success toast
+      toast.success("Sign in successful!", {
+        description: "Welcome back!",
+      })
+
+      // Redirect to the intended page or home
+      router.push(redirect)
+      router.refresh()
+    } catch (err: any) {
+      // Extract error message from API response
+      const errorMessage =
+        err?.response?.data?.message ||
+        err?.response?.data?.error ||
+        err?.message ||
+        "Please check your credentials and try again."
+      
+      toast.error("Sign in failed", {
+        description: errorMessage,
+      })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -152,10 +190,20 @@ export function SignInForm() {
               </Link>
             </div>
 
-            <Button type="submit">Sign In</Button>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? "Signing in..." : "Sign In"}
+            </Button>
           </form>
         </Form>
       </div>
     </div>
+  )
+}
+
+export function SignInForm() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SignInFormContent />
+    </Suspense>
   )
 }
