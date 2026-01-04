@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 import { ThemeProvider } from "@/components/theme-provider"
+import { QueryProvider } from "@/components/query-provider"
+import { Toaster } from "@/components/ui/sonner"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import Header from "@/components/header"
@@ -26,9 +28,10 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <LayoutWrapper>
-              {children}
-            </LayoutWrapper>
+            <QueryProvider>
+              <LayoutWrapper>{children}</LayoutWrapper>
+              <Toaster position="bottom-right" />
+            </QueryProvider>
           </ThemeProvider>
         </body>
       </html>
