@@ -45,8 +45,14 @@ const MobileMenu = ({
   const handleLogout = () => {
     logout()
     setIsMenuOpen(false)
-    router.push("/")
-    router.refresh()
+    
+    // Use window.location for a hard redirect to ensure all state is cleared
+    if (typeof window !== "undefined") {
+      window.location.href = "/"
+    } else {
+      router.push("/")
+      router.refresh()
+    }
   }
 
   return (

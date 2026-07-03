@@ -2,7 +2,7 @@
 export type ReviewReaction = {
   id: string
   userId: string
-  type: "like" | "dislike" | "helpful"
+  type: "LIKE" | "DISLIKE"
   createdAt: string
 }
 
@@ -21,6 +21,13 @@ export type Review = {
   userId: string
   userName?: string
   userAvatar?: string
+  user?: {
+    id: string
+    name?: string
+    username?: string
+    avatar?: string
+    email?: string
+  }
   rating: number // 1-5
   title?: string
   content: string
@@ -36,21 +43,24 @@ export type CreateReviewData = {
   productId: string
   rating: number
   title?: string
-  content: string
+  comment: string
 }
 
 export type UpdateReviewData = {
   rating?: number
   title?: string
-  content?: string
+  comment?: string
 }
 
 export type ReviewReactionData = {
-  type: "like" | "dislike" | "helpful"
+  reaction: "LIKE" | "DISLIKE"
+  userId: string
 }
 
 export type CreateReplyData = {
   content: string
+  parentId?: string // For nested replies
+  userId: string // User ID who is creating the reply
 }
 
 export type UpdateReplyData = {
@@ -74,4 +84,3 @@ export type ReviewFilters = {
   sort_by?: "created_at" | "rating" | "helpful"
   sort_order?: "asc" | "desc"
 }
-

@@ -1,5 +1,6 @@
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
+import { useCartStore } from "./cart-store"
 
 export type User = {
   id: string
@@ -67,13 +68,27 @@ export const useAuthStore = create<AuthStore>()(
       },
 
       logout: () => {
+        // Clear cart when logging out
+        if (typeof window !== "undefined") {
+          try {
+            const cartStore = useCartStore.getState()
+            cartStore.clearCart()
+          } catch (error) {
+            // Ignore errors when clearing cart
+          }
+        }
+
         // Xóa token khỏi localStorage
         if (typeof window !== "undefined") {
           localStorage.removeItem("token")
           localStorage.removeItem("refreshToken")
-          // Xóa cookies
-          document.cookie = "token=; path=/; max-age=0"
-          document.cookie = "refreshToken=; path=/; max-age=0"
+          // Xóa cookies với nhiều cách để đảm bảo xóa được
+          document.cookie = "token=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT"
+          document.cookie = "refreshToken=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT"
+          // Xóa cookies với domain
+          const hostname = window.location.hostname
+          document.cookie = `token=; path=/; domain=${hostname}; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT`
+          document.cookie = `refreshToken=; path=/; domain=${hostname}; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT`
         }
         set({
           user: null,

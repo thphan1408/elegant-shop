@@ -48,11 +48,19 @@ export function UserMenu() {
 
   const handleLogout = async () => {
     try {
+      // Try to call logout API, but don't wait if it fails
       await logoutApi()
     } catch (error) {
-      // Even if API call fails, clear local state
-    } finally {
-      logout()
+      // Ignore errors - we'll clear local state anyway
+    }
+    
+    // Always clear local state and redirect, regardless of API call result
+    logout()
+    
+    // Use window.location for a hard redirect to ensure all state is cleared
+    if (typeof window !== "undefined") {
+      window.location.href = "/"
+    } else {
       router.push("/")
       router.refresh()
     }

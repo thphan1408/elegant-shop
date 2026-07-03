@@ -4,7 +4,6 @@ import { QueryProvider } from "@/components/query-provider"
 import { Toaster } from "@/components/ui/sonner"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import Header from "@/components/header"
 import LayoutWrapper from "@/components/layout-wrapper"
 
 const inter = Inter({ subsets: ["vietnamese"] })
@@ -24,8 +23,9 @@ export default function RootLayout({
         <body className={`${inter.className}`}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
-            enableSystem
+            defaultTheme="light"
+            enableSystem={false}
+            forcedTheme="light"
             disableTransitionOnChange
           >
             <QueryProvider>

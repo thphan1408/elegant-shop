@@ -1,5 +1,6 @@
 import api from "@/services/api"
 import { handleApiResponse } from "./api-utils"
+import type { AxiosError } from "axios"
 import type {
   Review,
   CreateReviewData,
@@ -87,9 +88,56 @@ export const reactToReview = async (
   data: ReviewReactionData,
 ): Promise<void> => {
   try {
-    await api.post(`/reviews/${id}/react`, data)
+    // Validate data
+    if (!data || !data.reaction || !data.userId) {
+      throw new Error("Invalid reaction data: reaction and userId are required")
+    }
+
+    const payload = {
+      reaction: data.reaction,
+      userId: data.userId,
+    }
+
+    await api.post(`/reviews/${id}/react`, payload)
   } catch (error) {
-    throw new Error("Failed to react to review")
+    // Log detailed error information
+    const axiosError = error as AxiosError<{ message?: string; error?: string }>
+
+    // Provide more specific error message based on status code
+    if (axiosError?.response) {
+      const status = axiosError.response.status
+      const errorData = axiosError.response.data
+
+      if (status === 401) {
+        // Token expired - logout will be handled by API interceptor
+        // Just throw error to let interceptor handle it
+        throw new Error("Token expired. Please sign in again.")
+      }
+      if (status === 404) {
+        throw new Error("Review not found.")
+      }
+      if (status === 400) {
+        const message =
+          errorData?.message || errorData?.error || "Invalid request data."
+        throw new Error(message)
+      }
+      if (status === 500) {
+        throw new Error("Server error. Please try again later.")
+      }
+
+      // Generic error with message from server
+      const message =
+        errorData?.message ||
+        errorData?.error ||
+        `Request failed with status ${status}`
+      throw new Error(message)
+    }
+
+    // Network or other errors
+    throw new Error(
+      axiosError?.message ||
+        "Failed to react to review. Please check your connection.",
+    )
   }
 }
 
@@ -105,10 +153,26 @@ export const removeReactionFromReview = async (id: string): Promise<void> => {
 // Get reactions count for a review
 export const getReviewReactions = async (
   id: string,
-): Promise<{ likes: number; dislikes: number; helpful: number }> => {
+): Promise<{ likes: number; dislikes: number }> => {
   try {
     const response = await api.get(`/reviews/${id}/reactions`)
-    return handleApiResponse(response)
+
+    const data = handleApiResponse(response) as {
+      likeCount?: number
+      dislikeCount?: number
+      likes?: number
+      dislikes?: number
+    }
+
+    // Map API response format (likeCount/dislikeCount) to our format (likes/dislikes)
+    if (data && typeof data === "object") {
+      return {
+        likes: data.likeCount ?? data.likes ?? 0,
+        dislikes: data.dislikeCount ?? data.dislikes ?? 0,
+      }
+    }
+
+    return { likes: 0, dislikes: 0 }
   } catch (error) {
     throw new Error("Failed to fetch reactions")
   }
@@ -120,9 +184,25 @@ export const createReply = async (
   data: CreateReplyData,
 ): Promise<ReviewReply> => {
   try {
-    const response = await api.post(`/reviews/${reviewId}/replies`, data)
+    // Ensure userId is included in the payload
+    const payload = {
+      content: data.content,
+      ...(data.parentId && { parentId: data.parentId }),
+      userId: data.userId,
+    }
+    const response = await api.post(`/reviews/${reviewId}/replies`, payload)
     return handleApiResponse(response)
   } catch (error) {
+    const axiosError = error as AxiosError<{ message?: string; error?: string }>
+    if (axiosError?.response) {
+      const status = axiosError.response.status
+      const errorData = axiosError.response.data
+      const message =
+        errorData?.message ||
+        errorData?.error ||
+        `Failed to create reply (${status})`
+      throw new Error(message)
+    }
     throw new Error("Failed to create reply")
   }
 }

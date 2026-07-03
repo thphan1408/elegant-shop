@@ -16,6 +16,28 @@ const ArrivalsProduct = () => {
   // Sử dụng custom hook với React Query - tự động handle response structure
   const { data: products = [], isLoading, error } = useProducts()
 
+  // Lấy top 10 sản phẩm có rating cao nhất
+  const topRatedProducts = React.useMemo(() => {
+    if (!Array.isArray(products) || products.length === 0) {
+      return []
+    }
+
+    // Lọc sản phẩm có variants và sắp xếp theo rating
+    const validProducts = products.filter(
+      (product) => product.variants && product.variants.length > 0,
+    )
+
+    // Sắp xếp theo stars_evaluation (hoặc stars_evaluate) giảm dần
+    const sortedProducts = [...validProducts].sort((a, b) => {
+      const ratingA = a.stars_evaluation ?? a.stars_evaluate ?? 0
+      const ratingB = b.stars_evaluation ?? b.stars_evaluate ?? 0
+      return ratingB - ratingA
+    })
+
+    // Lấy tối đa 10 sản phẩm
+    return sortedProducts.slice(0, 10)
+  }, [products])
+
   const handleAddToCart = (product: Product, e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
@@ -46,7 +68,7 @@ const ArrivalsProduct = () => {
 
         <div>
           <Link
-            href="#"
+            href="/shop"
             className="hidden lg:flex items-center gap-1 no-underline border-b border-neutral-07 w-fit lg:text-base lg:leading-7 lg:font-medium 2xl:text-base 2xl:leading-7 2xl:font-medium"
           >
             More Products
@@ -75,13 +97,9 @@ const ArrivalsProduct = () => {
       ) : (
         <div className="w-full overflow-x-auto overflow-y-hidden scrollbar-custom pb-12">
           <div className="flex items-start gap-6 2xl:gap-8">
-            {Array.isArray(products) && products.length > 0 ? (
-              products.map((product: Product) => {
-                if (!product.variants || product.variants.length === 0) {
-                  return null
-                }
-
-                return (
+            {topRatedProducts.length > 0 ? (
+              <>
+                {topRatedProducts.map((product: Product) => (
                   <div
                     key={product.id}
                     className="lg:w-[calc(25%-1.125rem)] 2xl:w-[calc(25%-1.5rem)] flex flex-col shrink-0 group"
@@ -95,7 +113,7 @@ const ArrivalsProduct = () => {
                           <img
                             src={product.variants[0].image}
                             alt={product.name}
-                            className="w-full h-auto mb-4 mix-blend-darken"
+                            className="mb-4 mix-blend-darken w-full h-full"
                           />
 
                           {/* Buttons appear on hover */}
@@ -132,7 +150,9 @@ const ArrivalsProduct = () => {
                                 className={
                                   index <
                                   Math.floor(
-                                    (product as any).stars_evaluation || 0,
+                                    product.stars_evaluation ??
+                                      product.stars_evaluate ??
+                                      0,
                                   )
                                     ? "opacity-100"
                                     : "opacity-30"
@@ -182,8 +202,8 @@ const ArrivalsProduct = () => {
                       </div>
                     </Link>
                   </div>
-                )
-              })
+                ))}
+              </>
             ) : (
               <div className="w-full text-center py-8 text-gray-500">
                 No products available
@@ -194,7 +214,7 @@ const ArrivalsProduct = () => {
       )}
       <div className="lg:hidden">
         <Link
-          href="#"
+          href="/shop"
           className="flex items-center gap-1 no-underline border-b border-neutral-07 w-fit text-sm leading-6 font-medium"
         >
           More Products

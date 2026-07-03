@@ -80,22 +80,22 @@ export default function ProfilePage() {
           <div className="relative group">
             <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-neutral-02 flex items-center justify-center overflow-hidden cursor-pointer hover:opacity-90 transition-opacity">
               {displayAvatar ? (
-                <Image
+              <Image
                   src={displayAvatar}
-                  alt={user.name || "User"}
-                  width={96}
-                  height={96}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <Image
-                  src="/svg/user-circle.svg"
-                  alt="User"
-                  width={48}
-                  height={48}
-                  className="text-neutral-04"
-                />
-              )}
+                alt={user.name || "User"}
+                width={96}
+                height={96}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <Image
+                src="/svg/user-circle.svg"
+                alt="User"
+                width={48}
+                height={48}
+                className="text-neutral-04"
+              />
+            )}
             </div>
             <button
               onClick={handleAvatarClick}

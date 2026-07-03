@@ -4,6 +4,7 @@ import {
   useQuery,
   useMutation,
   useQueryClient,
+  keepPreviousData,
   UseQueryOptions,
   UseMutationOptions,
 } from "@tanstack/react-query"
@@ -100,10 +101,7 @@ export function useReviewCountByUser(
 export function useReviewReactions(
   reviewId: string,
   options?: Omit<
-    UseQueryOptions<
-      { likes: number; dislikes: number; helpful: number },
-      Error
-    >,
+    UseQueryOptions<{ likes: number; dislikes: number }, Error>,
     "queryKey" | "queryFn"
   >,
 ) {
@@ -111,7 +109,13 @@ export function useReviewReactions(
     queryKey: queryKeys.reviews.reactions(reviewId),
     queryFn: () => getReviewReactions(reviewId),
     enabled: !!reviewId,
-    staleTime: 1 * 60 * 1000, // 1 minute - reactions change frequently
+    staleTime: 30 * 1000, // 30s — avoids constant refetch churn
+    gcTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    retry: 2,
+    // Keep the last known count visible while refetching so the number
+    // never blanks out or flickers (a key cause of the "jumping" UX).
+    placeholderData: keepPreviousData,
     ...options,
   })
 }
@@ -211,11 +215,13 @@ export function useReactToReview(
   return useMutation({
     mutationFn: ({ id, data }) => reactToReview(id, data),
     onSuccess: (_, variables) => {
+      // Invalidating is enough — React Query refetches the active queries.
+      // The previous forced refetchQueries caused a second, visible number jump.
       queryClient.invalidateQueries({
         queryKey: queryKeys.reviews.reactions(variables.id),
       })
       queryClient.invalidateQueries({
-        queryKey: queryKeys.reviews.detail(variables.id),
+        queryKey: queryKeys.reviews.all,
       })
     },
     ...options,
@@ -235,7 +241,7 @@ export function useRemoveReaction(
         queryKey: queryKeys.reviews.reactions(reviewId),
       })
       queryClient.invalidateQueries({
-        queryKey: queryKeys.reviews.detail(reviewId),
+        queryKey: queryKeys.reviews.all,
       })
     },
     ...options,

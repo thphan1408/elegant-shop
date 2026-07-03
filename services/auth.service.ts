@@ -74,10 +74,19 @@ export const refreshToken = async (
 // Logout user
 export const logout = async (): Promise<void> => {
   try {
-    await api.post("/auth/logout")
-  } catch (error) {
-    // Even if logout fails, we should clear local state
-    throw new Error("Failed to logout")
+    // Mark request as logout to prevent interceptor from retrying
+    await api.post("/auth/logout", {}, {
+      headers: {
+        "X-Skip-Auth-Retry": "true", // Custom header to skip retry
+      },
+    })
+  } catch (error: any) {
+    // Even if logout API call fails (e.g., token expired, network error),
+    // we should still clear local state, so don't throw error
+    // Only log for debugging purposes
+    if (process.env.NODE_ENV === "development") {
+      console.warn("Logout API call failed, but clearing local state anyway:", error?.message)
+    }
   }
 }
 

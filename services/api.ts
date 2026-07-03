@@ -4,6 +4,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios"
 import DOMPurify from "isomorphic-dompurify"
+import { useAuthStore } from "@/store/auth-store"
 
 // Base API configuration
 const api = axios.create({
@@ -17,12 +18,19 @@ const api = axios.create({
 // Request interceptor
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    // Add auth token if available
-    const token =
-      typeof window !== "undefined" ? localStorage.getItem("token") : null
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+    // Skip auth for logout endpoint or if explicitly marked
+    const isLogoutRequest = config.url?.includes("/auth/logout")
+    const skipAuthRetry = config.headers?.["X-Skip-Auth-Retry"] === "true"
+
+    // Add auth token if available (but not for logout if token is expired)
+    if (!isLogoutRequest || !skipAuthRetry) {
+      const token =
+        typeof window !== "undefined" ? localStorage.getItem("token") : null
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+      }
     }
+
     return config
   },
   (error: AxiosError) => {
@@ -32,6 +40,7 @@ api.interceptors.request.use(
 
 // Helper to refresh token
 let isRefreshing = false
+let isLoggingOut = false // Prevent multiple logout redirects
 let failedQueue: Array<{
   resolve: (value?: any) => void
   reject: (reason?: any) => void
@@ -72,8 +81,17 @@ api.interceptors.response.use(
       _retry?: boolean
     }
 
-    // Handle 401 - Try to refresh token
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    // Skip retry for logout requests or if explicitly marked
+    const isLogoutRequest = originalRequest.url?.includes("/auth/logout")
+    const skipAuthRetry = originalRequest.headers?.["X-Skip-Auth-Retry"] === "true"
+
+    // Handle 401 - Try to refresh token (but not for logout requests)
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      !isLogoutRequest &&
+      !skipAuthRetry
+    ) {
       if (isRefreshing) {
         // If already refreshing, queue this request
         return new Promise((resolve, reject) => {
@@ -120,23 +138,28 @@ api.interceptors.response.use(
           processQueue(refreshError, null)
           isRefreshing = false
 
-          if (typeof window !== "undefined") {
-            localStorage.removeItem("token")
-            localStorage.removeItem("refreshToken")
-            document.cookie = "token=; path=/; max-age=0"
-            document.cookie = "refreshToken=; path=/; max-age=0"
-            // Optionally redirect to login
-            // window.location.href = "/sign-in"
+          // Call logout from auth store to clear all state
+          if (typeof window !== "undefined" && !isLoggingOut) {
+            isLoggingOut = true
+            useAuthStore.getState().logout()
+            // Show notification and redirect to sign-in page
+            setTimeout(() => {
+              window.location.href = "/sign-in"
+            }, 100)
           }
 
           return Promise.reject(refreshError)
         }
       } else {
-        // No refresh token, clear auth
-        if (typeof window !== "undefined") {
-          localStorage.removeItem("token")
-          document.cookie = "token=; path=/; max-age=0"
-          }
+        // No refresh token, logout user
+        if (typeof window !== "undefined" && !isLoggingOut) {
+          isLoggingOut = true
+          useAuthStore.getState().logout()
+          // Redirect to sign-in page
+          setTimeout(() => {
+            window.location.href = "/sign-in"
+          }, 100)
+        }
         processQueue(error, null)
         isRefreshing = false
       }
