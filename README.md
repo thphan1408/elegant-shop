@@ -134,10 +134,12 @@
 
 ## 🚀 Cài đặt
 
+> Mục này chỉ dựng riêng frontend. Muốn dựng **cả hệ thống** từ máy trắng — backend, database, dữ liệu mẫu, rồi mới tới frontend — xem `SETUP.md` trong repo `elegant-shop-backend`.
+
 ### Yêu cầu hệ thống
 
-- **Node.js**: >= 18.0.0
-- **npm**: >= 9.0.0 (hoặc yarn/pnpm)
+- **Node.js**: >= 20.9 (mốc đã kiểm chứng: 22.17.1) — Next.js 16 và React 19 không chạy trên Node 18
+- **npm**: >= 10.0.0 (hoặc yarn/pnpm)
 
 ### Bước 1: Clone repository
 

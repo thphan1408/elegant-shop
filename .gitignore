@@ -32,6 +32,9 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# ...trừ file mẫu: nó chỉ chứa tên biến và giá trị giả, và người clone repo
+# về cần nó để biết phải cấu hình những gì.
+!.env.example
 
 # vercel
 .vercel
